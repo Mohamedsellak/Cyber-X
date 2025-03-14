@@ -69,7 +69,7 @@ export default function Navbar() {
 
       <div className="mt-auto pt-4 border-t border-gray-800">
         <button 
-          onClick={() => {/* Add logout logic */}}
+          onClick={() => {window.location.href = '/login'}}
           className="w-full p-2 rounded-lg text-left text-red-500 hover:bg-gray-800 flex items-center space-x-2 transition-colors duration-150"
         >
           <RiLogoutBoxRLine className="w-5 h-5" />

@@ -7,7 +7,8 @@ import {
   RiSmartphoneLine,
   RiCloudLine,
   RiSettings3Line,
-  RiArrowRightSLine
+  RiArrowRightSLine,
+  RiSaveLine  // Changed from RiSave3Line to RiSaveLine
 } from 'react-icons/ri';
 
 export default function Settings() {
@@ -104,8 +105,16 @@ export default function Settings() {
               </button>
             </div>
           </div>
+
+
+          {/* Save Button */}
+          <div className="flex justify-end mt-4">
+            <button className="px-6 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 flex items-center">
+              <RiSaveLine className="mr-2" /> Save Changes {/* Changed from RiSave3Line to RiSaveLine */}
+            </button>
+          </div>
         </div>
       </div>
     </div>
   );
-} 
+}

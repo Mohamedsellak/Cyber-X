@@ -13,7 +13,7 @@ const Login = () => {
     // TODO: Add actual authentication logic here
     
     // For now, simulate successful login and redirect
-    navigate('/home');
+    navigate('/dashboard');
   };
 
   return (
@@ -44,7 +44,7 @@ const Login = () => {
                 required
                 className="relative block w-full rounded-lg border border-gray-800 bg-gray-900 px-3 py-2 text-gray-100 placeholder-gray-500 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500 sm:text-sm"
                 placeholder="Email address"
-                value={formData.email}
+                value={"sellak@ddd.ddd"}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
               />
             </div>
@@ -58,7 +58,7 @@ const Login = () => {
                 required
                 className="relative block w-full rounded-lg border border-gray-800 bg-gray-900 px-3 py-2 text-gray-100 placeholder-gray-500 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500 sm:text-sm"
                 placeholder="Password"
-                value={formData.password}
+                value={"password"}
                 onChange={(e) => setFormData({...formData, password: e.target.value})}
               />
             </div>
