@@ -6,74 +6,114 @@ import {
   RiToolsLine,
   RiSettings4Line,
   RiLogoutBoxRLine,
-  RiShieldCheckLine
+  RiShieldCheckLine,
+  RiUserLine,
+  RiBellLine,
 } from 'react-icons/ri'
 
 export default function Navbar() {
+
+  const logout = () => {
+    cookies.remove('token');
+    localStorage.getItem('token')
+    window.location.href = '/login';
+  }
+
   return (
-    <div className="h-screen w-64 bg-gray-900 text-gray-100 p-4 flex flex-col border-r border-gray-800">
-      <div className="mb-8 flex items-center space-x-3">
-        <RiShieldCheckLine className="w-8 h-8 text-purple-500" />
-        <div>
-          <h1 className="text-2xl font-bold text-purple-500">Cyber X</h1>
-          <p className="text-sm text-gray-400">Security Analysis Tool</p>
+    <div className="h-screen w-72 fixed top-0 left-0 bg-gradient-to-b from-gray-900 via-gray-900 to-gray-800 text-gray-100 flex flex-col border-r border-gray-800/50 shadow-xl">
+      {/* Logo Section */}
+      <div className="p-6 border-b border-gray-800/50">
+        <div className="flex items-center space-x-3 mb-6">
+          <div className="p-2 bg-purple-500/10 rounded-xl">
+            <RiShieldCheckLine className="w-8 h-8 text-purple-500" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent">
+              Cyber X
+            </h1>
+            <p className="text-sm text-gray-400">Security Analysis Tool</p>
+          </div>
+        </div>
+
+        {/* User Profile */}
+        <div className="flex items-center space-x-4 p-3 bg-gray-800/50 rounded-xl mb-4">
+          <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
+            <RiUserLine className="w-5 h-5 text-purple-500" />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-sm font-medium text-gray-200">Admin User</h3>
+            <p className="text-xs text-gray-400">admin@cyberx.com</p>
+          </div>
+          <RiBellLine className="w-5 h-5 text-gray-400 hover:text-purple-500 cursor-pointer" />
         </div>
       </div>
       
-      <nav className="space-y-2 flex-1">
+      {/* Navigation */}
+      <nav className="flex-1 p-4 space-y-1">
         <NavLink 
-          to="/home" 
+          to="/dashboard" 
           className={({ isActive }) =>
-            `flex items-center space-x-2 p-2 rounded-lg transition-colors duration-150 ${
-              isActive ? 'bg-purple-500 text-white' : 'hover:bg-gray-800'
+            `flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-150 relative group ${
+              isActive 
+                ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/20' 
+                : 'hover:bg-gray-800/50 text-gray-400 hover:text-white'
             }`
           }
         >
           <RiDashboardLine className="w-5 h-5" />
-          <span>Dashboard</span>
+          <span className="font-medium">Dashboard</span>
         </NavLink>
         <NavLink 
           to="/reports" 
           className={({ isActive }) =>
-            `flex items-center space-x-2 p-2 rounded-lg transition-colors duration-150 ${
-              isActive ? 'bg-purple-500 text-white' : 'hover:bg-gray-800'
+            `flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-150 relative group ${
+              isActive 
+                ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/20' 
+                : 'hover:bg-gray-800/50 text-gray-400 hover:text-white'
             }`
           }
         >
           <RiFileList3Line className="w-5 h-5" />
-          <span>Reports</span>
+          <span className="font-medium">Reports</span>
         </NavLink>
         <NavLink 
           to="/tools" 
           className={({ isActive }) =>
-            `flex items-center space-x-2 p-2 rounded-lg transition-colors duration-150 ${
-              isActive ? 'bg-purple-500 text-white' : 'hover:bg-gray-800'
+            `flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-150 relative group ${
+              isActive 
+                ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/20' 
+                : 'hover:bg-gray-800/50 text-gray-400 hover:text-white'
             }`
           }
         >
           <RiToolsLine className="w-5 h-5" />
-          <span>Tools</span>
+          <span className="font-medium">Tools</span>
         </NavLink>
         <NavLink 
           to="/settings" 
           className={({ isActive }) =>
-            `flex items-center space-x-2 p-2 rounded-lg transition-colors duration-150 ${
-              isActive ? 'bg-purple-500 text-white' : 'hover:bg-gray-800'
+            `flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-150 relative group ${
+              isActive 
+                ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/20' 
+                : 'hover:bg-gray-800/50 text-gray-400 hover:text-white'
             }`
           }
         >
           <RiSettings4Line className="w-5 h-5" />
-          <span>Settings</span>
+          <span className="font-medium">Settings</span>
         </NavLink>
       </nav>
 
-      <div className="mt-auto pt-4 border-t border-gray-800">
+      {/* Footer/Logout Section */}
+      <div className="p-4 border-t border-gray-800/50">
         <button 
-          onClick={() => {window.location.href = '/login'}}
-          className="w-full p-2 rounded-lg text-left text-red-500 hover:bg-gray-800 flex items-center space-x-2 transition-colors duration-150"
+          onClick={() => logout()}
+          className="w-full px-4 py-3 rounded-xl text-left text-gray-400 hover:text-red-500 
+                     hover:bg-red-500/10 flex items-center space-x-3 transition-colors duration-150
+                     group"
         >
-          <RiLogoutBoxRLine className="w-5 h-5" />
-          <span>Logout</span>
+          <RiLogoutBoxRLine className="w-5 h-5 transition-transform duration-150 group-hover:translate-x-1" />
+          <span className="font-medium">Logout</span>
         </button>
       </div>
     </div>

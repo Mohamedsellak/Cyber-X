@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   RiComputerLine,
   RiWifiLine,
@@ -14,12 +14,216 @@ import {
   RiDatabase2Line,
   RiRadarLine,
   RiFileShieldLine,
-  RiTerminalBoxLine
+  RiTerminalBoxLine,
+  RiMailLine,
+  RiServerLine,
+  RiUserSettingsLine,
+  RiCodeLine,
+  RiFingerprint2Line,
+  RiBrainLine,
+  RiLockLine,
+  RiCloudLine,
+  RiCodeBlock
 } from 'react-icons/ri';
 
 export default function Tools() {
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+
+  const tools = [
+    {
+      id: 1,
+      name: 'Network Scanner',
+      description: 'Detect vulnerabilities in your network infrastructure',
+      icon: RiComputerLine,
+      category: 'network',
+      uses: 124
+    },
+    {
+      id: 2,
+      name: 'Port Scanner',
+      description: 'Analyze open ports and potential security risks',
+      icon: RiWifiLine,
+      category: 'network',
+      uses: 98
+    },
+    {
+      id: 3,
+      name: 'Malware Detector',
+      description: 'Scan systems for potential malware threats',
+      icon: RiBugLine,
+      category: 'system',
+      uses: 156
+    },
+    {
+      id: 4,
+      name: 'Password Analyzer',
+      description: 'Check password strength and identify vulnerabilities',
+      icon: RiLockPasswordLine,
+      category: 'web',
+      uses: 203
+    },
+    {
+      id: 5,
+      name: 'Web Application Firewall',
+      description: 'Protect web applications from common attacks and vulnerabilities',
+      icon: RiShieldKeyholeLine,
+      category: 'web',
+      uses: 167
+    },
+    {
+      id: 6,
+      name: 'Network Traffic Analyzer',
+      description: 'Deep packet inspection and network traffic analysis',
+      icon: RiRadarLine,
+      category: 'network',
+      uses: 145
+    },
+    {
+      id: 7,
+      name: 'API Security Scanner',
+      description: 'Test REST APIs for security vulnerabilities',
+      icon: RiFileCodeLine,
+      category: 'web',
+      uses: 189
+    },
+    {
+      id: 8,
+      name: 'Memory Analyzer',
+      description: 'Detect memory leaks and analyze system memory usage',
+      icon: RiDatabase2Line,
+      category: 'system',
+      uses: 112
+    },
+    {
+      id: 9,
+      name: 'Container Security Scanner',
+      description: 'Analyze Docker containers for security issues',
+      icon: RiFileShieldLine,
+      category: 'system',
+      uses: 134
+    },
+    {
+      id: 10,
+      name: 'SSL Certificate Manager',
+      description: 'Manage and monitor SSL/TLS certificates',
+      icon: RiShieldCheckLine,
+      category: 'web',
+      uses: 178
+    },
+    {
+      id: 11,
+      name: 'Firewall Analyzer',
+      description: 'Analyze firewall rules and configurations',
+      icon: RiShieldKeyholeLine,
+      category: 'network',
+      uses: 156
+    },
+    {
+      id: 12,
+      name: 'Log Analyzer',
+      description: 'Advanced security log analysis and monitoring',
+      icon: RiFileCodeLine,
+      category: 'system',
+      uses: 201
+    },
+    {
+      id: 13,
+      name: 'Database Security Scanner',
+      description: 'Identify database vulnerabilities and misconfigurations',
+      icon: RiDatabase2Line,
+      category: 'system',
+      uses: 145
+    },
+    {
+      id: 14,
+      name: 'SIEM Tool',
+      description: 'Security Information and Event Management system',
+      icon: RiBarChartBoxLine,
+      category: 'system',
+      uses: 167
+    },
+    {
+      id: 15,
+      name: 'Email Security Analyzer',
+      description: 'Scan emails for phishing and malware threats',
+      icon: RiMailLine,
+      category: 'network',
+      uses: 189
+    },
+    {
+      id: 16,
+      name: 'Cloud Security Analyzer',
+      description: 'Analyze cloud infrastructure security and compliance',
+      icon: RiCloudLine,
+      category: 'cloud',
+      uses: 178
+    },
+    {
+      id: 17,
+      name: 'Access Control Manager',
+      description: 'Manage and audit access control policies',
+      icon: RiLockLine,
+      category: 'system',
+      uses: 165
+    },
+    {
+      id: 18,
+      name: 'Threat Intelligence Platform',
+      description: 'Real-time threat detection and analysis',
+      icon: RiBrainLine,
+      category: 'network',
+      uses: 212
+    },
+    {
+      id: 19,
+      name: 'Zero Trust Validator',
+      description: 'Validate zero trust architecture implementation',
+      icon: RiShieldKeyholeLine,
+      category: 'network',
+      uses: 143
+    },
+    {
+      id: 20,
+      name: 'Identity Verification System',
+      description: 'Advanced biometric and multi-factor authentication',
+      icon: RiFingerprint2Line,
+      category: 'system',
+      uses: 198
+    },
+    {
+      id: 21,
+      name: 'API Gateway Security',
+      description: 'Secure and monitor API gateway endpoints',
+      icon: RiCodeLine,
+      category: 'web',
+      uses: 167
+    },
+    {
+      id: 22,
+      name: 'DDoS Protection',
+      description: 'Advanced DDoS attack detection and mitigation',
+      icon: RiCodeBlock,
+      category: 'network',
+      uses: 189
+    },
+    {
+      id: 23,
+      name: 'IAM Analyzer',
+      description: 'Identity and Access Management policy analyzer',
+      icon: RiUserSettingsLine,
+      category: 'system',
+      uses: 156
+    },
+    {
+      id: 24,
+      name: 'Kubernetes Security Scanner',
+      description: 'Container orchestration security analysis',
+      icon: RiServerLine,
+      category: 'cloud',
+      uses: 145
+    }
+  ];
 
   const categories = [
     { id: 'all', name: 'All Tools' },
@@ -28,11 +232,43 @@ export default function Tools() {
     { id: 'web', name: 'Web Security' },
   ];
 
+  const filteredTools = useMemo(() => {
+    return tools.filter(tool => {
+      const matchesSearch = tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          tool.description.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesCategory = activeTab === 'all' || tool.category === activeTab;
+      return matchesSearch && matchesCategory;
+    });
+  }, [tools, searchQuery, activeTab]);
+
+  const renderTool = (tool) => (
+    <div key={tool.id} className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-lg border border-gray-800 hover:border-purple-500/50 transition-all duration-300 shadow-lg">
+      <div className="flex items-center mb-4">
+        <tool.icon className="w-6 h-6 text-purple-500 mr-3" />
+        <h3 className="text-lg font-semibold text-gray-100">{tool.name}</h3>
+      </div>
+      <p className="text-gray-400 mb-4">{tool.description}</p>
+      <div className="space-y-3">
+        <div className="flex items-center justify-between text-sm">
+          <div className="flex items-center text-gray-400">
+            <RiShieldCheckLine className="w-4 h-4 text-green-500 mr-2" />
+            <span>Status: Ready</span>
+          </div>
+          <span className="text-purple-400">Uses: {tool.uses}</span>
+        </div>
+        <button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-150 flex items-center justify-center">
+          <RiRefreshLine className="w-4 h-4 mr-2" />
+          Launch Tool
+        </button>
+      </div>
+    </div>
+  );
+
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-3 bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent">
-          Security Tools Dashboard
+          Security Tools
         </h1>
         <p className="text-gray-400 text-lg">Enterprise-grade security analysis suite</p>
       </div>
@@ -49,7 +285,7 @@ export default function Tools() {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           {categories.map((cat) => (
             <button
               key={cat.id}
@@ -61,6 +297,13 @@ export default function Tools() {
               }`}
             >
               {cat.name}
+              {activeTab === cat.id && (
+                <span className="ml-2 bg-purple-400 px-2 py-0.5 rounded-full text-xs">
+                  {cat.id === 'all' 
+                    ? tools.length 
+                    : tools.filter(t => t.category === cat.id).length}
+                </span>
+              )}
             </button>
           ))}
         </div>
@@ -68,238 +311,13 @@ export default function Tools() {
 
       {/* Tools Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Existing tools with enhanced design */}
-        <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-lg border border-gray-800 hover:border-purple-500/50 transition-all duration-300 shadow-lg">
-          <div className="flex items-center mb-4">
-            <RiComputerLine className="w-6 h-6 text-purple-500 mr-3" />
-            <h3 className="text-lg font-semibold text-gray-100">Network Scanner</h3>
+        {filteredTools.length > 0 ? (
+          filteredTools.map(renderTool)
+        ) : (
+          <div className="col-span-full text-center py-8 text-gray-400">
+            No tools found matching your search criteria
           </div>
-          <p className="text-gray-400 mb-4">Detect vulnerabilities in your network infrastructure</p>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center text-gray-400">
-                <RiShieldCheckLine className="w-4 h-4 text-green-500 mr-2" />
-                <span>Status: Ready</span>
-              </div>
-              <span className="text-purple-400">Uses: 124</span>
-            </div>
-            <button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-150 flex items-center justify-center">
-              <RiRefreshLine className="w-4 h-4 mr-2" />
-              Launch Scanner
-            </button>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-lg border border-gray-800 hover:border-purple-500/50 transition-all duration-300 shadow-lg">
-          <div className="flex items-center mb-4">
-            <RiWifiLine className="w-6 h-6 text-purple-500 mr-3" />
-            <h3 className="text-lg font-semibold text-gray-100">Port Scanner</h3>
-          </div>
-          <p className="text-gray-400 mb-4">Analyze open ports and potential security risks</p>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center text-gray-400">
-                <RiShieldCheckLine className="w-4 h-4 text-green-500 mr-2" />
-                <span>Status: Ready</span>
-              </div>
-              <span className="text-purple-400">Uses: 124</span>
-            </div>
-            <button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-150 flex items-center justify-center">
-              <RiRefreshLine className="w-4 h-4 mr-2" />
-              Launch Scanner
-            </button>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-lg border border-gray-800 hover:border-purple-500/50 transition-all duration-300 shadow-lg">
-          <div className="flex items-center mb-4">
-            <RiBugLine className="w-6 h-6 text-purple-500 mr-3" />
-            <h3 className="text-lg font-semibold text-gray-100">Malware Detector</h3>
-          </div>
-          <p className="text-gray-400 mb-4">Scan systems for potential malware threats</p>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center text-gray-400">
-                <RiShieldCheckLine className="w-4 h-4 text-green-500 mr-2" />
-                <span>Status: Ready</span>
-              </div>
-              <span className="text-purple-400">Uses: 124</span>
-            </div>
-            <button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-150 flex items-center justify-center">
-              <RiRefreshLine className="w-4 h-4 mr-2" />
-              Start Scan
-            </button>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-lg border border-gray-800 hover:border-purple-500/50 transition-all duration-300 shadow-lg">
-          <div className="flex items-center mb-4">
-            <RiLockPasswordLine className="w-6 h-6 text-purple-500 mr-3" />
-            <h3 className="text-lg font-semibold text-gray-100">Password Analyzer</h3>
-          </div>
-          <p className="text-gray-400 mb-4">Check password strength and identify vulnerabilities</p>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center text-gray-400">
-                <RiShieldCheckLine className="w-4 h-4 text-green-500 mr-2" />
-                <span>Status: Ready</span>
-              </div>
-              <span className="text-purple-400">Uses: 124</span>
-            </div>
-            <button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-150 flex items-center justify-center">
-              <RiRefreshLine className="w-4 h-4 mr-2" />
-              Analyze Password
-            </button>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-lg border border-gray-800 hover:border-purple-500/50 transition-all duration-300 shadow-lg">
-          <div className="flex items-center mb-4">
-            <RiGlobalLine className="w-6 h-6 text-purple-500 mr-3" />
-            <h3 className="text-lg font-semibold text-gray-100">DNS Lookup</h3>
-          </div>
-          <p className="text-gray-400 mb-4">Analyze DNS records and detect misconfigurations</p>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center text-gray-400">
-                <RiShieldCheckLine className="w-4 h-4 text-green-500 mr-2" />
-                <span>Status: Ready</span>
-              </div>
-              <span className="text-purple-400">Uses: 124</span>
-            </div>
-            <button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-150 flex items-center justify-center">
-              <RiRefreshLine className="w-4 h-4 mr-2" />
-              Lookup DNS
-            </button>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-lg border border-gray-800 hover:border-purple-500/50 transition-all duration-300 shadow-lg">
-          <div className="flex items-center mb-4">
-            <RiShieldKeyholeLine className="w-6 h-6 text-purple-500 mr-3" />
-            <h3 className="text-lg font-semibold text-gray-100">SSL Checker</h3>
-          </div>
-          <p className="text-gray-400 mb-4">Verify SSL certificates and security configurations</p>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center text-gray-400">
-                <RiShieldCheckLine className="w-4 h-4 text-green-500 mr-2" />
-                <span>Status: Ready</span>
-              </div>
-              <span className="text-purple-400">Uses: 124</span>
-            </div>
-            <button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-150 flex items-center justify-center">
-              <RiRefreshLine className="w-4 h-4 mr-2" />
-              Check Certificate
-            </button>
-          </div>
-        </div>
-
-        {/* New Tools */}
-        <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-lg border border-gray-800 hover:border-purple-500/50 transition-all duration-300 shadow-lg">
-          <div className="flex items-center mb-4">
-            <RiFileCodeLine className="w-6 h-6 text-purple-500 mr-3" />
-            <h3 className="text-lg font-semibold text-gray-100">Code Scanner</h3>
-          </div>
-          <p className="text-gray-400 mb-4">Static code analysis for security vulnerabilities</p>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center text-gray-400">
-                <RiShieldCheckLine className="w-4 h-4 text-green-500 mr-2" />
-                <span>Status: Ready</span>
-              </div>
-              <span className="text-purple-400">Uses: 124</span>
-            </div>
-            <button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-150 flex items-center justify-center">
-              <RiRefreshLine className="w-4 h-4 mr-2" />
-              Scan Code
-            </button>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-lg border border-gray-800 hover:border-purple-500/50 transition-all duration-300 shadow-lg">
-          <div className="flex items-center mb-4">
-            <RiDatabase2Line className="w-6 h-6 text-purple-500 mr-3" />
-            <h3 className="text-lg font-semibold text-gray-100">Database Security Analyzer</h3>
-          </div>
-          <p className="text-gray-400 mb-4">Analyze database security configurations</p>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center text-gray-400">
-                <RiShieldCheckLine className="w-4 h-4 text-green-500 mr-2" />
-                <span>Status: Ready</span>
-              </div>
-              <span className="text-purple-400">Uses: 124</span>
-            </div>
-            <button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-150 flex items-center justify-center">
-              <RiRefreshLine className="w-4 h-4 mr-2" />
-              Analyze Database
-            </button>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-lg border border-gray-800 hover:border-purple-500/50 transition-all duration-300 shadow-lg">
-          <div className="flex items-center mb-4">
-            <RiRadarLine className="w-6 h-6 text-purple-500 mr-3" />
-            <h3 className="text-lg font-semibold text-gray-100">Intrusion Detection System</h3>
-          </div>
-          <p className="text-gray-400 mb-4">Monitor network traffic for suspicious activity</p>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center text-gray-400">
-                <RiShieldCheckLine className="w-4 h-4 text-green-500 mr-2" />
-                <span>Status: Ready</span>
-              </div>
-              <span className="text-purple-400">Uses: 124</span>
-            </div>
-            <button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-150 flex items-center justify-center">
-              <RiRefreshLine className="w-4 h-4 mr-2" />
-              Monitor Traffic
-            </button>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-lg border border-gray-800 hover:border-purple-500/50 transition-all duration-300 shadow-lg">
-          <div className="flex items-center mb-4">
-            <RiFileShieldLine className="w-6 h-6 text-purple-500 mr-3" />
-            <h3 className="text-lg font-semibold text-gray-100">File Integrity Monitor</h3>
-          </div>
-          <p className="text-gray-400 mb-4">Monitor files for unauthorized changes</p>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center text-gray-400">
-                <RiShieldCheckLine className="w-4 h-4 text-green-500 mr-2" />
-                <span>Status: Ready</span>
-              </div>
-              <span className="text-purple-400">Uses: 124</span>
-            </div>
-            <button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-150 flex items-center justify-center">
-              <RiRefreshLine className="w-4 h-4 mr-2" />
-              Monitor Files
-            </button>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-lg border border-gray-800 hover:border-purple-500/50 transition-all duration-300 shadow-lg">
-          <div className="flex items-center mb-4">
-            <RiTerminalBoxLine className="w-6 h-6 text-purple-500 mr-3" />
-            <h3 className="text-lg font-semibold text-gray-100">Command Injection Tester</h3>
-          </div>
-          <p className="text-gray-400 mb-4">Test for command injection vulnerabilities</p>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center text-gray-400">
-                <RiShieldCheckLine className="w-4 h-4 text-green-500 mr-2" />
-                <span>Status: Ready</span>
-              </div>
-              <span className="text-purple-400">Uses: 124</span>
-            </div>
-            <button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-150 flex items-center justify-center">
-              <RiRefreshLine className="w-4 h-4 mr-2" />
-              Test Command Injection
-            </button>
-          </div>
-        </div>
+        )}
       </div>
 
       {/* Enhanced Statistics Section */}

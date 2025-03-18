@@ -6,10 +6,10 @@ import {
   RiUserLine,
   RiCpuLine,
   RiHardDriveLine,
-  RiMemoryFill,  
+  RiDatabase2Line, // Replace RiMemoryLine
   RiSpeedLine,
   RiWifiLine,
-  RiThermometerFill,  // Replace RiTemperatureLine
+  RiTempHotLine, // Replace RiThermometerFill
 } from 'react-icons/ri';
 
 export default function Dashboard() {
@@ -33,34 +33,51 @@ export default function Dashboard() {
         temp: Math.floor(Math.random() * 10) + 35,
         uptime: prev.uptime
       }));
-    }, 2000);
+    }, 500);
 
     return () => clearInterval(interval);
   }, []);
 
-  // New component for metric cards
-  const MetricCard = ({ icon: Icon, title, value, color, unit, details }) => (
-    <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-lg border border-gray-800 hover:border-purple-500/50 transition-all duration-300 shadow-lg">
-      <div className="flex justify-between items-start mb-4">
-        <div className="flex items-center">
-          <Icon className={`w-6 h-6 ${color} mr-3`} />
-          <h3 className="text-lg font-semibold text-gray-100">{title}</h3>
+  const MetricCard = ({ icon: Icon, title, value, color, unit, details }) => {
+    // Simplified direct color mapping
+    const getBarColor = (textColor) => {
+      switch(textColor) {
+        case 'text-blue-500': return 'bg-blue-500';
+        case 'text-purple-500': return 'bg-purple-500';
+        case 'text-green-500': return 'bg-green-500';
+        case 'text-yellow-500': return 'bg-yellow-500';
+        case 'text-red-500': return 'bg-red-500';
+        case 'text-indigo-500': return 'bg-indigo-500';
+        default: return 'bg-purple-500';
+      }
+    };
+
+    return (
+      <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-lg border border-gray-800 hover:border-purple-500/50 transition-all duration-300 shadow-lg">
+        <div className="flex justify-between items-start mb-4">
+          <div className="flex items-center">
+            <Icon className={`w-6 h-6 ${color} mr-3`} />
+            <h3 className="text-lg font-semibold text-gray-100">{title}</h3>
+          </div>
+        </div>
+        <div className="relative pt-2">
+          <div className="flex mb-2 items-center justify-between">
+            <div className={`text-3xl font-bold ${color}`}>{value}{unit}</div>
+            <span className="text-sm text-gray-400">{details}</span>
+          </div>
+          <div className="overflow-hidden h-2 text-xs flex rounded-full bg-gray-700">
+            <div 
+              style={{ 
+                width: `${typeof value === 'number' ? value : 50}%`,
+                transition: 'all 0.5s ease'
+              }}
+              className={`${getBarColor(color)} h-full rounded-full`}
+            />
+          </div>
         </div>
       </div>
-      <div className="relative pt-2">
-        <div className="flex mb-2 items-center justify-between">
-          <div className={`text-3xl font-bold ${color}`}>{value}{unit}</div>
-          <span className="text-sm text-gray-400">{details}</span>
-        </div>
-        <div className="overflow-hidden h-2 text-xs flex rounded-full bg-gray-700">
-          <div 
-            style={{ width: `${typeof value === 'number' ? value : 50}%` }}
-            className={`transition-all duration-500 shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center ${color.replace('text', 'bg')}`}
-          />
-        </div>
-      </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -82,7 +99,7 @@ export default function Dashboard() {
           details="8 Cores"
         />
         <MetricCard 
-          icon={RiMemoryFill}  // Changed from RiMemoryLine
+          icon={RiDatabase2Line}  // Changed from RiMemoryLine
           title="Memory Usage"
           value={systemMetrics.ram}
           color="text-purple-500"
@@ -106,7 +123,7 @@ export default function Dashboard() {
           details="24MB/s"
         />
         <MetricCard 
-          icon={RiThermometerFill}  // Changed from RiTemperatureLine
+          icon={RiTempHotLine}  // Changed from RiThermometerFill
           title="Temperature"
           value={systemMetrics.temp}
           color="text-red-500"

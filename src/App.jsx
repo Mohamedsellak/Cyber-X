@@ -27,7 +27,16 @@ export default function App() {
         <Route path="/dashboard" element={<AuthLayout><Dashboard /></AuthLayout>} />
         <Route path="/reports" element={<AuthLayout><Reports /></AuthLayout>} />
         <Route path="/settings" element={<AuthLayout><Settings /></AuthLayout>} />
-        <Route path="/tools" element={<AuthLayout><Tools /></AuthLayout>} />
+        {/* <Route path="/tools" element={<AuthLayout><Tools /></AuthLayout>}>
+            <Route path="/xss" element={<AuthLayout><Tools /></AuthLayout>}/>
+            <Route path="/port-scan" element={<AuthLayout><Tools /></AuthLayout>}/>
+            <Route path="/sql-scan" element={<AuthLayout><Tools /></AuthLayout>}/>
+            <Route path="/ssl-scan" element={<AuthLayout><Tools /></AuthLayout>}/>
+            .
+            .
+            . 
+            
+        </Route> */}
         
         {/* Fallback route */}
         <Route path="*" element={<Login />} />
