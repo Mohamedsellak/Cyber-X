@@ -10,6 +10,7 @@ import Reports from "./components/reports.jsx";
 import Settings from "./components/settings.jsx";
 import Tools from "./components/tools.jsx";
 import Dashboard from "./components/dashboard.jsx";
+import PortScan from "./components/tools/PortScan.jsx";
 
 export default function App() {
   useEffect(() => {
@@ -27,16 +28,12 @@ export default function App() {
         <Route path="/dashboard" element={<AuthLayout><Dashboard /></AuthLayout>} />
         <Route path="/reports" element={<AuthLayout><Reports /></AuthLayout>} />
         <Route path="/settings" element={<AuthLayout><Settings /></AuthLayout>} />
-        {/* <Route path="/tools" element={<AuthLayout><Tools /></AuthLayout>}>
-            <Route path="/xss" element={<AuthLayout><Tools /></AuthLayout>}/>
-            <Route path="/port-scan" element={<AuthLayout><Tools /></AuthLayout>}/>
-            <Route path="/sql-scan" element={<AuthLayout><Tools /></AuthLayout>}/>
-            <Route path="/ssl-scan" element={<AuthLayout><Tools /></AuthLayout>}/>
-            .
-            .
-            . 
-            
-        </Route> */}
+        <Route path="/tools" element={<AuthLayout><Tools /></AuthLayout>}>
+          <Route path="port-scan" element={<PortScan />} />
+          {/* <Route path="xss" element={<XssScan />} />
+          <Route path="sql-scan" element={<SqlScan />} />
+          <Route path="ssl-scan" element={<SslScan />} /> */}
+        </Route>
         
         {/* Fallback route */}
         <Route path="*" element={<Login />} />
