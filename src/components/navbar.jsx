@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink,useNavigate } from 'react-router-dom'
 import { 
   RiDashboardLine,
   RiFileList3Line,
@@ -13,10 +13,12 @@ import {
 
 export default function Navbar() {
 
+  const navigate = useNavigate();
+
   const logout = () => {
-    cookies.remove('token');
-    localStorage.getItem('token')
-    window.location.href = '/login';
+    // cookies.remove('token');
+    // localStorage.getItem('token')
+    navigate('/');
   }
 
   return (
