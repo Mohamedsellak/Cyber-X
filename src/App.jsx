@@ -13,6 +13,19 @@ import Dashboard from "./components/dashboard.jsx";
 import PortScan from "./components/tools/PortScan.jsx";
 
 export default function App() {
+
+  useEffect(() => {
+    const fetchSystemInfo = async () => {
+      const systemInfo = await window.api.getSystemInfo();
+      const temperature = await window.api.getTemperature();
+      const uptime = await window.api.getUptime();
+      console.log("System Info:", systemInfo);
+      console.log("Temperature:", temperature);
+      console.log("Uptime:", uptime);
+    };
+    fetchSystemInfo();
+  }, []);
+
   useEffect(() => {
     document.title = "Cyber X - Security Analysis Platform";
   }, []);

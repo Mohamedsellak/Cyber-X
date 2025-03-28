@@ -1,11 +1,16 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
-const si = require('systeminformation');
+const { getSystemInfo, getTemperature, getUptime } = require('./services/systemInfo');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
+
+// Clean IPC handlers setup
+ipcMain.handle('get-system-info', getSystemInfo);
+ipcMain.handle('get-temperature', getTemperature);
+ipcMain.handle('get-uptime', getUptime);
 
 const createWindow = () => {
   // Create the browser window.
@@ -15,8 +20,8 @@ const createWindow = () => {
     // resizable: false,
     icon: path.join(__dirname, 'assets', 'icon.png'),
     webPreferences: {
-      nodeIntegration: false,
       contextIsolation: true,
+      nodeIntegration: true,
       enableRemoteModule: false,
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
@@ -27,7 +32,7 @@ const createWindow = () => {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
@@ -54,15 +59,4 @@ app.on('window-all-closed', () => {
   }
 });
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
 
-ipcMain.handle('get-processes', async () => {
-  const processes = await si.processes();
-  return processes;
-});
-
-ipcMain.handle('get-disk-space', async () => {
-  const fsSize = await si.fsSize();
-  return fsSize;
-});

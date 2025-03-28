@@ -1,3 +1,7 @@
-// See the Electron documentation for details on how to use preload scripts:
-// https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
+const { contextBridge, ipcRenderer } = require('electron');
 
+contextBridge.exposeInMainWorld('api', {
+  getSystemInfo: () => ipcRenderer.invoke('get-system-info'),
+  getTemperature: () => ipcRenderer.invoke('get-temperature'),
+  getUptime: () => ipcRenderer.invoke('get-uptime')
+});
