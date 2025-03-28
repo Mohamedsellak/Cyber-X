@@ -272,10 +272,10 @@ export default function Tools() {
     <Link
       key={tool.id}
       to={tool.path}
-      className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-lg border border-gray-800 hover:border-purple-500/50 transition-all duration-300 shadow-lg"
+      className="bg-gray-900/40 backdrop-blur-xl p-6 rounded-lg border border-gray-800/50 hover:border-green-500/50 hover:shadow-green-900/10 hover:shadow-2xl transition-all duration-300"
     >
       <div className="flex items-center mb-4">
-        <tool.icon className="w-6 h-6 text-purple-500 mr-3" />
+        <tool.icon className="w-6 h-6 text-green-500 mr-3" />
         <h3 className="text-lg font-semibold text-gray-100">{tool.name}</h3>
       </div>
       <p className="text-gray-400 mb-4">{tool.description}</p>
@@ -285,11 +285,14 @@ export default function Tools() {
             <RiShieldCheckLine className="w-4 h-4 text-green-500 mr-2" />
             <span>Status: Ready</span>
           </div>
-          <span className="text-purple-400">Uses: {tool.uses}</span>
+          <span className="text-green-400">Uses: {tool.uses}</span>
         </div>
-        <div className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-150 flex items-center justify-center">
-          <RiRefreshLine className="w-4 h-4 mr-2" />
-          Launch Tool
+        <div className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 py-2 rounded-lg transition-all duration-300 flex items-center justify-center relative overflow-hidden group">
+          <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-green-600 to-emerald-600 opacity-0 group-hover:opacity-80 transition-opacity duration-300"></span>
+          <span className="relative flex items-center">
+            <RiRefreshLine className="w-4 h-4 mr-2" />
+            Launch Tool
+          </span>
         </div>
       </div>
     </Link>
@@ -304,7 +307,7 @@ export default function Tools() {
       {location.pathname === '/tools' && (
         <>
           <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-3 bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold mb-3 bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent">
               Security Tools
             </h1>
             <p className="text-gray-400 text-lg">Enterprise-grade security analysis suite</p>
@@ -317,7 +320,7 @@ export default function Tools() {
               <input
                 type="text"
                 placeholder="Search tools..."
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg py-2 pl-10 pr-4 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 text-gray-200"
+                className="w-full bg-gray-800/70 border border-gray-700 rounded-lg py-2 pl-10 pr-4 focus:border-green-500 focus:ring-1 focus:ring-green-500 text-gray-200"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -329,13 +332,13 @@ export default function Tools() {
                   onClick={() => setActiveTab(cat.id)}
                   className={`px-4 py-2 rounded-lg transition-all duration-200 ${
                     activeTab === cat.id
-                      ? 'bg-purple-500 text-white'
-                      : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                      ? 'bg-green-500 text-white'
+                      : 'bg-gray-800/70 text-gray-400 hover:bg-gray-700'
                   }`}
                 >
                   {cat.name}
                   {activeTab === cat.id && (
-                    <span className="ml-2 bg-purple-400 px-2 py-0.5 rounded-full text-xs">
+                    <span className="ml-2 bg-green-400 px-2 py-0.5 rounded-full text-xs">
                       {cat.id === 'all' 
                         ? tools.length 
                         : tools.filter(t => t.category === cat.id).length}
@@ -359,9 +362,9 @@ export default function Tools() {
 
           {/* Enhanced Statistics Section */}
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-lg border border-gray-800">
+            <div className="bg-gray-900/40 backdrop-blur-xl p-6 rounded-lg border border-gray-800/50 hover:shadow-green-900/10 hover:shadow-2xl transition-all duration-300">
               <div className="flex items-center mb-4">
-                <RiBarChartBoxLine className="w-6 h-6 text-purple-500 mr-3" />
+                <RiBarChartBoxLine className="w-6 h-6 text-green-500 mr-3" />
                 <h3 className="text-lg font-semibold text-gray-100">Recent Activity</h3>
               </div>
               <div className="space-y-3">
@@ -374,9 +377,9 @@ export default function Tools() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-lg border border-gray-800">
+            <div className="bg-gray-900/40 backdrop-blur-xl p-6 rounded-lg border border-gray-800/50 hover:shadow-green-900/10 hover:shadow-2xl transition-all duration-300">
               <div className="flex items-center mb-4">
-                <RiShieldCheckLine className="w-6 h-6 text-purple-500 mr-3" />
+                <RiShieldCheckLine className="w-6 h-6 text-green-500 mr-3" />
                 <h3 className="text-lg font-semibold text-gray-100">System Status</h3>
               </div>
               <div className="grid grid-cols-2 gap-4">

@@ -6,7 +6,7 @@ import {
   RiToolsLine,
   RiSettings4Line,
   RiLogoutBoxRLine,
-  RiShieldCheckLine,
+  RiShieldKeyholeLine,
   RiUserLine,
   RiBellLine,
 } from 'react-icons/ri'
@@ -26,11 +26,11 @@ export default function Navbar() {
       {/* Logo Section */}
       <div className="p-6 border-b border-gray-800/50">
         <div className="flex items-center space-x-3 mb-6">
-          <div className="p-2 bg-purple-500/10 rounded-xl">
-            <RiShieldCheckLine className="w-8 h-8 text-purple-500" />
+          <div className="p-2 bg-green-500/10 rounded-xl">
+            <RiShieldKeyholeLine className="w-8 h-8 text-green-500" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent">
               Cyber X
             </h1>
             <p className="text-sm text-gray-400">Security Analysis Tool</p>
@@ -38,15 +38,15 @@ export default function Navbar() {
         </div>
 
         {/* User Profile */}
-        <div className="flex items-center space-x-4 p-3 bg-gray-800/50 rounded-xl mb-4">
-          <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
-            <RiUserLine className="w-5 h-5 text-purple-500" />
+        <div className="flex items-center space-x-4 p-3 bg-gray-800/50 rounded-xl mb-4 backdrop-blur-sm border border-gray-800/50 hover:shadow-green-900/10 hover:shadow-md transition-all duration-300">
+          <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
+            <RiUserLine className="w-5 h-5 text-green-500" />
           </div>
           <div className="flex-1">
             <h3 className="text-sm font-medium text-gray-200">Admin User</h3>
             <p className="text-xs text-gray-400">admin@cyberx.com</p>
           </div>
-          <RiBellLine className="w-5 h-5 text-gray-400 hover:text-purple-500 cursor-pointer" />
+          <RiBellLine className="w-5 h-5 text-gray-400 hover:text-green-400 cursor-pointer transition-colors" />
         </div>
       </div>
       
@@ -57,7 +57,7 @@ export default function Navbar() {
           className={({ isActive }) =>
             `flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-150 relative group ${
               isActive 
-                ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/20' 
+                ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/20' 
                 : 'hover:bg-gray-800/50 text-gray-400 hover:text-white'
             }`
           }
@@ -70,7 +70,7 @@ export default function Navbar() {
           className={({ isActive }) =>
             `flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-150 relative group ${
               isActive 
-                ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/20' 
+                ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/20' 
                 : 'hover:bg-gray-800/50 text-gray-400 hover:text-white'
             }`
           }
@@ -83,7 +83,7 @@ export default function Navbar() {
           className={({ isActive }) =>
             `flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-150 relative group ${
               isActive 
-                ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/20' 
+                ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/20' 
                 : 'hover:bg-gray-800/50 text-gray-400 hover:text-white'
             }`
           }
@@ -96,7 +96,7 @@ export default function Navbar() {
           className={({ isActive }) =>
             `flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-150 relative group ${
               isActive 
-                ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/20' 
+                ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/20' 
                 : 'hover:bg-gray-800/50 text-gray-400 hover:text-white'
             }`
           }
@@ -110,7 +110,7 @@ export default function Navbar() {
       <div className="p-4 border-t border-gray-800/50">
         <button 
           onClick={() => logout()}
-          className="w-full px-4 py-3 rounded-xl text-left text-gray-400 hover:text-red-500 
+          className="w-full px-4 py-3 rounded-xl text-left text-gray-400 hover:text-red-400 
                      hover:bg-red-500/10 flex items-center space-x-3 transition-colors duration-150
                      group"
         >

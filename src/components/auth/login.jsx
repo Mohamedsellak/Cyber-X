@@ -86,82 +86,11 @@ const Login = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col md:flex-row bg-gray-950 text-gray-100 overflow-hidden">
+    <div className="relative min-h-screen flex flex-col bg-gray-950 text-gray-100 overflow-hidden">
       <BackgroundMesh />
       
-      {/* Left side - brand and description */}
-      <div className="md:w-1/2 lg:w-3/5 p-8 md:p-16 flex flex-col justify-center relative z-10">
-        <div className="max-w-xl">
-          <div className="flex items-center mb-6 space-x-2 group cursor-pointer">
-            <div className="relative">
-              <div className="absolute inset-0 bg-green-500/20 rounded-full blur-lg transform group-hover:scale-110 transition-all duration-300"></div>
-              <div className="relative bg-gradient-to-br from-green-400 to-emerald-600 rounded-full p-2.5">
-                <RiShieldKeyholeLine className="h-8 w-8 text-white" />
-              </div>
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold ml-1 text-white group-hover:text-green-400 transition-colors">Cyber X</h1>
-              <div className="h-0.5 w-0 group-hover:w-full bg-green-500/50 transition-all duration-300"></div>
-            </div>
-          </div>
-          
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
-            Next-gen Security <br/>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-emerald-600">
-              For Modern Threats
-            </span>
-          </h2>
-          
-          <p className="text-gray-400 max-w-lg mb-10 text-lg">
-            Access our advanced security analysis tools and protect your systems with military-grade penetration testing and threat monitoring.
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
-            <div className="flex items-start space-x-4 group">
-              <div className="bg-gradient-to-br from-green-500/20 to-green-500/10 p-3 rounded-xl transform group-hover:scale-105 transition-all duration-300">
-                <FaShieldAlt className="h-6 w-6 text-green-400" />
-              </div>
-              <div>
-                <h3 className="font-medium text-white mb-1">Advanced Protection</h3>
-                <p className="text-sm text-gray-400">Comprehensive security suite for all vulnerabilities</p>
-              </div>
-            </div>
-            
-            <div className="flex items-start space-x-4 group">
-              <div className="bg-gradient-to-br from-green-500/20 to-green-500/10 p-3 rounded-xl transform group-hover:scale-105 transition-all duration-300">
-                <FaFingerprint className="h-6 w-6 text-green-400" />
-              </div>
-              <div>
-                <h3 className="font-medium text-white mb-1">Secure Access</h3>
-                <p className="text-sm text-gray-400">Multi-factor authentication and encrypted sessions</p>
-              </div>
-            </div>
-            
-            <div className="flex items-start space-x-4 group">
-              <div className="bg-gradient-to-br from-green-500/20 to-green-500/10 p-3 rounded-xl transform group-hover:scale-105 transition-all duration-300">
-                <FaServer className="h-6 w-6 text-green-400" />
-              </div>
-              <div>
-                <h3 className="font-medium text-white mb-1">Real-Time Monitoring</h3>
-                <p className="text-sm text-gray-400">Instant alerts and threat detection systems</p>
-              </div>
-            </div>
-            
-            <div className="flex items-start space-x-4 group">
-              <div className="bg-gradient-to-br from-green-500/20 to-green-500/10 p-3 rounded-xl transform group-hover:scale-105 transition-all duration-300">
-                <FaNetworkWired className="h-6 w-6 text-green-400" />
-              </div>
-              <div>
-                <h3 className="font-medium text-white mb-1">Network Security</h3>
-                <p className="text-sm text-gray-400">Comprehensive firewall and intrusion prevention</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      {/* Right side - login form */}
-      <div className="md:w-1/2 lg:w-2/5 p-8 md:p-16 flex items-center justify-center relative z-10">
+      {/* Login form - now full width */}
+      <div className="w-full p-8 md:p-16 flex-grow flex items-center justify-center relative z-10">
         <div className="w-full max-w-md bg-gray-900/40 backdrop-blur-xl rounded-2xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-800/50 relative overflow-hidden hover:shadow-green-900/10 hover:shadow-2xl transition-all duration-300">
           {/* Glowing accent */}
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-400 via-emerald-500 to-green-400"></div>

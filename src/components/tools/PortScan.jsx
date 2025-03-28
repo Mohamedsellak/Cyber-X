@@ -49,14 +49,14 @@ export default function PortScan() {
       {/* Header */}
       <div className="border-b border-gray-800 pb-4">
         <h2 className="text-2xl font-bold text-gray-100 flex items-center">
-          <RiWifiLine className="mr-2 text-purple-500" />
+          <RiWifiLine className="mr-2 text-green-500" />
           Port Scanner
         </h2>
         <p className="text-gray-400">Analyze open ports and potential security risks</p>
       </div>
 
       {/* Scan Form */}
-      <form onSubmit={handleScan} className="bg-gray-900 p-6 rounded-lg border border-gray-800">
+      <form onSubmit={handleScan} className="bg-gray-900/40 backdrop-blur-xl p-6 rounded-lg border border-gray-800/50 shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-green-900/10 hover:shadow-2xl transition-all duration-300">
         <div className="space-y-4">
           <div>
             <label className="block text-gray-300 mb-2">Target Host/IP</label>
@@ -65,7 +65,7 @@ export default function PortScan() {
               value={target}
               onChange={(e) => setTarget(e.target.value)}
               placeholder="Enter hostname or IP address"
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg py-2 px-4 text-gray-200 focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
+              className="w-full bg-gray-800/70 border border-gray-700 rounded-lg py-2 px-4 text-gray-200 focus:border-green-500 focus:ring-1 focus:ring-green-500"
               required
             />
           </div>
@@ -76,7 +76,7 @@ export default function PortScan() {
               value={portRange}
               onChange={(e) => setPortRange(e.target.value)}
               placeholder="e.g., 1-1000"
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg py-2 px-4 text-gray-200 focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
+              className="w-full bg-gray-800/70 border border-gray-700 rounded-lg py-2 px-4 text-gray-200 focus:border-green-500 focus:ring-1 focus:ring-green-500"
             />
           </div>
           <button
@@ -85,27 +85,30 @@ export default function PortScan() {
             className={`w-full ${
               isScanning
                 ? 'bg-gray-700 cursor-not-allowed'
-                : 'bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700'
-            } text-white py-2 px-4 rounded-lg transition-all duration-150 flex items-center justify-center`}
+                : 'bg-gradient-to-r from-green-600 to-emerald-600 hover:shadow-lg hover:shadow-green-900/20'
+            } text-white py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center overflow-hidden group relative`}
           >
-            {isScanning ? (
-              <>
-                <RiTimeLine className="animate-spin mr-2" />
-                Scanning...
-              </>
-            ) : (
-              <>
-                <RiSearchLine className="mr-2" />
-                Start Scan
-              </>
-            )}
+            {!isScanning && <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-green-600 to-emerald-600 opacity-0 group-hover:opacity-80 transition-opacity duration-300"></span>}
+            <span className="relative flex items-center">
+              {isScanning ? (
+                <>
+                  <RiTimeLine className="animate-spin mr-2" />
+                  Scanning...
+                </>
+              ) : (
+                <>
+                  <RiSearchLine className="mr-2" />
+                  Start Scan
+                </>
+              )}
+            </span>
           </button>
         </div>
       </form>
 
       {/* Results */}
       {results && (
-        <div className="bg-gray-900 p-6 rounded-lg border border-gray-800">
+        <div className="bg-gray-900/40 backdrop-blur-xl p-6 rounded-lg border border-gray-800/50 shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-green-900/10 hover:shadow-2xl transition-all duration-300">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-gray-100">Scan Results</h3>
             <div className="flex items-center text-sm text-gray-400">
@@ -116,7 +119,7 @@ export default function PortScan() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div className="bg-gray-800/50 p-4 rounded-lg">
-              <div className="text-2xl font-bold text-purple-500">{results.portsScanned}</div>
+              <div className="text-2xl font-bold text-green-500">{results.portsScanned}</div>
               <div className="text-sm text-gray-400">Ports Scanned</div>
             </div>
             <div className="bg-gray-800/50 p-4 rounded-lg">
