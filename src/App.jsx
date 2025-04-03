@@ -11,26 +11,27 @@ import Settings from "./components/settings.jsx";
 import Tools from "./components/tools.jsx";
 import Dashboard from "./components/dashboard.jsx";
 import PortScan from "./components/tools/PortScan.jsx";
+import NetworkScanner from "./components/tools/NetworkScanner.jsx";
 
 export default function App() {
 
   useEffect(() => {
     const fetchSystemInfo = async () => {
-      const systemInfo = await window.api.getSystemInfo();
-      const temperature = await window.api.getTemperature();
-      const uptime = await window.api.getUptime();
-      const networkStats = await window.api.getNetworkStats();
-      console.log("Network Stats:", networkStats);
-      console.log("System Info:", systemInfo);
-      console.log("Temperature:", temperature);
-      console.log("Uptime:", uptime);
+      // const networkDevices = await window.api.scanNetwork();
+      // console.log("Network Devices:", networkDevices);
+
+      // const openPorts = await window.api.portScan('192.168.1.1', '1-1000');
+      // console.log("Open Ports:", openPorts);// This should print the open ports
+
+      const serviceDiscovery = await window.api.serviceDiscovery();
+      console.log("Service Discovery:", serviceDiscovery);
     };
     fetchSystemInfo();
   }, []);
 
-  useEffect(() => {
-    document.title = "Cyber X - Security Analysis Platform";
-  }, []);
+  // useEffect(() => {
+  //   document.title = "Cyber X - Security Analysis Platform";
+  // }, []);
 
   return (
     <BrowserRouter>
@@ -44,6 +45,7 @@ export default function App() {
         <Route path="/reports" element={<AuthLayout><Reports /></AuthLayout>} />
         <Route path="/settings" element={<AuthLayout><Settings /></AuthLayout>} />
         <Route path="/tools" element={<AuthLayout><Tools /></AuthLayout>}>
+          <Route path="network-scan" element={<NetworkScanner />} />
           <Route path="port-scan" element={<PortScan />} />
           {/* <Route path="xss" element={<XssScan />} />
           <Route path="sql-scan" element={<SqlScan />} />

@@ -16,29 +16,52 @@ export default function PortScan() {
   const [results, setResults] = useState(null);
   const [error, setError] = useState(null);
 
+  const validatePortRange = (range) => {
+    const [start, end] = range.split('-').map(Number);
+    return !isNaN(start) && !isNaN(end) && start > 0 && end <= 65535 && start <= end;
+  };
+
   const handleScan = async (e) => {
     e.preventDefault();
+    
+    if (!target.trim()) {
+      setError('Please enter a valid target host or IP address');
+      return;
+    }
+
+    if (!validatePortRange(portRange)) {
+      setError('Please enter a valid port range (e.g., 1-1000)');
+      return;
+    }
+
     setIsScanning(true);
     setError(null);
     
     try {
-      // Simulate scan - Replace with actual API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      const scanResults = await window.api.portScan(target, portRange);
       
-      // Mock results
+      if (!scanResults || !Array.isArray(scanResults) || scanResults.length === 0) {
+        throw new Error('Invalid scan results format');
+      }
+
+      const [result] = scanResults;
+      const ports = result.openPorts || [];
+      
       setResults({
         target: target,
-        scanTime: '2.3s',
-        portsScanned: 1000,
-        openPorts: [
-          { port: 80, service: 'HTTP', status: 'open' },
-          { port: 443, service: 'HTTPS', status: 'open' },
-          { port: 22, service: 'SSH', status: 'open' },
-          { port: 21, service: 'FTP', status: 'filtered' }
-        ]
+        scanTime: new Date().toLocaleTimeString(),
+        portsScanned: parseInt(portRange.split('-')[1]) - parseInt(portRange.split('-')[0]) + 1,
+        openPorts: ports.map(port => ({
+          port: port.port,
+          service: port.service || 'unknown',
+          status: port.state || 'open',
+          version: port.version || 'N/A',
+          protocol: port.protocol || 'tcp'
+        }))
       });
     } catch (err) {
-      setError('Failed to complete port scan. Please try again.');
+      setError(`Scan failed: ${err.message || 'Unknown error occurred'}`);
+      console.error('Port scan error:', err);
     } finally {
       setIsScanning(false);
     }

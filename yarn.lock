@@ -622,9 +622,9 @@
     global-agent "^3.0.0"
 
 "@electron/node-gyp@git+https://github.com/electron/node-gyp.git#06b29aafb7708acef8b3669835c8a7857ebc92d2":
-  version "10.2.0-electron.2"
-  resolved "git+ssh://git@github.com/electron/node-gyp.git"
-  integrity sha512-VJvV/zMGIB8PV6cw1jex5174XwyO0IX2xYPmj9M9qWkyqGOsv9fs4Z/0fwykzrKouSakhBqLZnKrJPQ5nYSOyA==
+  version "10.2.0-electron.1"
+  resolved "git+ssh://git@github.com/electron/node-gyp.git#06b29aafb7708acef8b3669835c8a7857ebc92d2"
+  integrity sha512-lBSgDMQqt7QWMuIjS8zNAq5FI5o5RVBAcJUGWGI6GgoQITJt3msAkUrHp8YHj3RTVE+h70ndqMGqURjp3IfRyQ==
   dependencies:
     env-paths "^2.2.0"
     exponential-backoff "^3.1.1"
@@ -6227,6 +6227,14 @@ node-loader@^2.1.0:
   dependencies:
     loader-utils "^2.0.3"
 
+node-nmap@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/node-nmap/-/node-nmap-4.0.0.tgz"
+  integrity sha512-VJGebpYsfqmUm46+Fq0qp1Y9VXGXZ7/WL03tHGy1oJHHxaJ2DvYLMjuYWYHDV0pgUL+e5/9rCN/QEsx3+fU9TA==
+  dependencies:
+    queued-up "^2.0.2"
+    xml2js "^0.4.15"
+
 node-releases@^2.0.14:
   version "2.0.14"
   resolved "https://registry.npmjs.org/node-releases/-/node-releases-2.0.14.tgz"
@@ -7424,6 +7432,11 @@ queue-microtask@^1.2.2:
   resolved "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
+queued-up@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/queued-up/-/queued-up-2.0.2.tgz"
+  integrity sha512-6ToqVyUPHRoIcxLKyUz7TCph2NULzoc41TAjdX/Fv7wsvj+E7tAAgqOab1cIFe0uTLJNWOswbLG4eDd2j3Y8AA==
+
 quick-lru@^5.1.1:
   version "5.1.1"
   resolved "https://registry.npmjs.org/quick-lru/-/quick-lru-5.1.1.tgz"
@@ -7960,7 +7973,7 @@ sass.js@^0.10.1:
   resolved "https://registry.npmjs.org/sass.js/-/sass.js-0.10.13.tgz"
   integrity sha512-kgx2iuK+Rg2GM9mNTL9nYsJVTRp64JcHTIgkkHb+TsZY/+C2X6gd3rD7j+SPohNNHewEIBLZ9zpTpDGXX/3Ksg==
 
-sax@^1.1.4:
+sax@^1.1.4, sax@>=0.6.0:
   version "1.4.1"
   resolved "https://registry.npmjs.org/sax/-/sax-1.4.1.tgz"
   integrity sha512-+aWOz7yVScEGoKNd4PA10LZ8sk0A/z5+nXQG5giUO5rprX9jgYsTdov9qCchZiPIZezbZH+jRut8nPodFAX4Jg==
@@ -9472,10 +9485,23 @@ ws@^8.13.0:
   resolved "https://registry.npmjs.org/xml-name-validator/-/xml-name-validator-2.0.1.tgz"
   integrity sha512-jRKe/iQYMyVJpzPH+3HL97Lgu5HrCfii+qSo+TfjKHtOnvbnvdVfMYrn9Q34YV81M2e5sviJlI6Ko9y+nByzvA==
 
+xml2js@^0.4.15:
+  version "0.4.23"
+  resolved "https://registry.npmjs.org/xml2js/-/xml2js-0.4.23.tgz"
+  integrity sha512-ySPiMjM0+pLDftHgXY4By0uswI3SPKLDw/i3UXbnO8M/p28zqexCUoPmQFrYD+/1BzhGJSs2i1ERWKJAtiLrug==
+  dependencies:
+    sax ">=0.6.0"
+    xmlbuilder "~11.0.0"
+
 xmlbuilder@^15.1.1:
   version "15.1.1"
   resolved "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-15.1.1.tgz"
   integrity sha512-yMqGBqtXyeN1e3TGYvgNgDVZ3j84W4cwkOXQswghol6APgZWaff9lnbvN7MHYJOiXsvGPXtjTYJEiC9J2wv9Eg==
+
+xmlbuilder@~11.0.0:
+  version "11.0.1"
+  resolved "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-11.0.1.tgz"
+  integrity sha512-fDlsI/kFEx7gLvbecc0/ohLG50fugQp8ryHzMTuW9vSa1GJ0XYWKnhsUx7oie3G98+r56aTQIUB4kht42R3JvA==
 
 xterm-addon-fit@^0.5.0:
   version "0.5.0"

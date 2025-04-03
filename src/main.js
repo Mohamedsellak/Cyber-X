@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const { getSystemInfo, getTemperature, getUptime, getNetworkStats } = require('./services/systemInfo');
+const { scanNetwork, portScan, serviceDiscovery } = require('./services/networkScan');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -13,6 +14,33 @@ ipcMain.handle('get-temperature', getTemperature);
 ipcMain.handle('get-uptime', getUptime);
 ipcMain.handle('get-network-stats', getNetworkStats);
 
+// Add error handling for network scanning functions
+ipcMain.handle('scan-network', async (event, range) => {
+  try {
+    return await scanNetwork(range);
+  } catch (error) {
+    console.error('Network scan error:', error);
+    throw error;
+  }
+});
+
+ipcMain.handle('port-scan', async (event, target, ports) => {
+  try {
+    return await portScan(target, ports);
+  } catch (error) {
+    console.error('Port scan error:', error);
+    throw error;
+  }
+});
+
+ipcMain.handle('service-discovery', async (event, target) => {
+  try {
+    return await serviceDiscovery(target);
+  } catch (error) {
+    console.error('Service discovery error:', error);
+    throw error;
+  }
+});
 
 // Define the main window
 const createWindow = () => {

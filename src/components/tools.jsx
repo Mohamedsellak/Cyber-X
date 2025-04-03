@@ -34,15 +34,6 @@ export default function Tools() {
 
   const tools = [
     {
-      id: 2,
-      name: 'Port Scanner',
-      description: 'Analyze open ports and potential security risks',
-      icon: RiWifiLine,
-      category: 'network',
-      uses: 98,
-      path: 'port-scan'
-    },
-    {
       id: 1,
       name: 'Network Scanner',
       description: 'Detect vulnerabilities in your network infrastructure',
@@ -50,6 +41,15 @@ export default function Tools() {
       category: 'network',
       uses: 124,
       path: 'network-scan'
+    },
+    {
+      id: 2,
+      name: 'Port Scanner',
+      description: 'Analyze open ports and potential security risks',
+      icon: RiWifiLine,
+      category: 'network',
+      uses: 98,
+      path: 'port-scan'
     },
     {
       id: 3,

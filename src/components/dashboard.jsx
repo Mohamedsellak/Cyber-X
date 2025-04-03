@@ -6,7 +6,6 @@ import {
   RiHardDriveLine,
   RiDatabase2Line,
   RiSpeedLine,
-  RiWifiLine,
   RiTempHotLine,
   RiRefreshLine,
 } from 'react-icons/ri';
