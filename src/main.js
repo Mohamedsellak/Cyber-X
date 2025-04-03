@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
-const { getSystemInfo, getTemperature, getUptime } = require('./services/systemInfo');
+const { getSystemInfo, getTemperature, getUptime, getNetworkStats } = require('./services/systemInfo');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -11,7 +11,10 @@ if (require('electron-squirrel-startup')) {
 ipcMain.handle('get-system-info', getSystemInfo);
 ipcMain.handle('get-temperature', getTemperature);
 ipcMain.handle('get-uptime', getUptime);
+ipcMain.handle('get-network-stats', getNetworkStats);
 
+
+// Define the main window
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({

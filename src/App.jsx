@@ -19,6 +19,8 @@ export default function App() {
       const systemInfo = await window.api.getSystemInfo();
       const temperature = await window.api.getTemperature();
       const uptime = await window.api.getUptime();
+      const networkStats = await window.api.getNetworkStats();
+      console.log("Network Stats:", networkStats);
       console.log("System Info:", systemInfo);
       console.log("Temperature:", temperature);
       console.log("Uptime:", uptime);

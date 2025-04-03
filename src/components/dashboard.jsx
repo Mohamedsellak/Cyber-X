@@ -10,30 +10,74 @@ import {
   RiTempHotLine,
   RiRefreshLine,
 } from 'react-icons/ri';
+import NetworkInfo from './NetworkInfo';
 
 export default function Dashboard() {
   const [systemMetrics, setSystemMetrics] = useState({
-    cpu: 45,
-    ram: 62,
-    storage: 78,
-    network: 25,
-    temp: 42,
-    uptime: '12:42:33'
+    cpu: { usage: 0, cores: 0 },
+    ram: { used: 0, total: 0, usage: 0 },
+    storage: { used: 0, total: 0, usage: 0 },
+    network: { speed: 0, speedIn: 0, speedOut: 0, usage: 0 },
+    temp: { main: 0 },
+    uptime: '00:00:00',
+    networkInterfaces: []
   });
 
-  // Simulate real-time updates
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSystemMetrics(prev => ({
-        cpu: Math.floor(Math.random() * 30) + 40,
-        ram: Math.floor(Math.random() * 20) + 50,
-        storage: prev.storage,
-        network: Math.floor(Math.random() * 40) + 20,
-        temp: Math.floor(Math.random() * 10) + 35,
-        uptime: prev.uptime
-      }));
-    }, 500);
+  const fetchSystemData = async () => {
+    try {
+      const [sysInfo, temp, uptime, networkStats] = await Promise.all([
+        window.api.getSystemInfo(),
+        window.api.getTemperature(),
+        window.api.getUptime(),
+        window.api.getNetworkStats()
+      ]);
 
+      const ramUsage = (sysInfo.mem.used / sysInfo.mem.total) * 100;
+      const storageUsage = (sysInfo.disk[0].used / sysInfo.disk[0].size) * 100;
+      
+      // Format uptime to HH:MM:SS
+      const formatUptime = (seconds) => {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+      };
+
+      setSystemMetrics({
+        cpu: { 
+          usage: sysInfo.cpu.speed,
+          cores: sysInfo.cpu.cores 
+        },
+        ram: { 
+          used: Math.round(sysInfo.mem.used / (1024 * 1024 * 1024)), // Convert to GB
+          total: Math.round(sysInfo.mem.total / (1024 * 1024 * 1024)),
+          usage: Math.round(ramUsage)
+        },
+        storage: {
+          used: Math.round(sysInfo.disk[0].used / (1024 * 1024 * 1024)),
+          total: Math.round(sysInfo.disk[0].size / (1024 * 1024 * 1024)),
+          usage: Math.round(storageUsage)
+        },
+        network: {
+          speed: networkStats.total,
+          speedIn: networkStats.speedIn,
+          speedOut: networkStats.speedOut,
+          usage: Math.min(Math.round((networkStats.total / 12.5) * 100), 100) // Calculate usage percentage based on typical network speeds
+        },
+        temp: {
+          main: temp.main || 0
+        },
+        uptime: formatUptime(uptime.uptime),
+        networkInterfaces: sysInfo.network
+      });
+    } catch (error) {
+      console.error('Error fetching system metrics:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSystemData(); // Initial fetch
+    const interval = setInterval(fetchSystemData, 1000); // Update every second
     return () => clearInterval(interval);
   }, []);
 
@@ -83,6 +127,8 @@ export default function Dashboard() {
         </div>
       </div>
 
+      
+
       {/* Quick Stats Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         {[
@@ -111,41 +157,33 @@ export default function Dashboard() {
         <MetricCard 
           icon={RiCpuLine}
           title="CPU Usage"
-          value={systemMetrics.cpu}
+          value={systemMetrics.cpu.usage}
           unit="%"
-          details="8 Cores"
+          details={`${systemMetrics.cpu.cores} Cores`}
           gradient="bg-gradient-to-r from-blue-500 to-cyan-500"
         />
         <MetricCard 
           icon={RiDatabase2Line}
           title="Memory Usage"
-          value={systemMetrics.ram}
+          value={systemMetrics.ram.usage}
           unit="%"
-          details="16GB Total"
+          details={`${systemMetrics.ram.used}GB/${systemMetrics.ram.total}GB`}
           gradient="bg-gradient-to-r from-purple-500 to-pink-500"
         />
         <MetricCard 
           icon={RiHardDriveLine}
           title="Storage"
-          value={systemMetrics.storage}
+          value={systemMetrics.storage.usage}
           unit="%"
-          details="432GB/512GB"
+          details={`${systemMetrics.storage.used}GB/${systemMetrics.storage.total}GB`}
           gradient="bg-gradient-to-r from-green-500 to-teal-500"
-        />
-        <MetricCard 
-          icon={RiWifiLine}
-          title="Network"
-          value={systemMetrics.network}
-          unit="%"
-          details="24MB/s"
-          gradient="bg-gradient-to-r from-yellow-500 to-orange-500"
         />
         <MetricCard 
           icon={RiTempHotLine}
           title="Temperature"
-          value={systemMetrics.temp}
+          value={systemMetrics.temp.main}
           unit="°C"
-          details="Normal"
+          details="CPU Temp"
           gradient="bg-gradient-to-r from-red-500 to-pink-500"
         />
         <MetricCard 
@@ -157,6 +195,15 @@ export default function Dashboard() {
           gradient="bg-gradient-to-r from-gray-500 to-gray-700"
         />
       </div>
+
+      {/* Network Information */}
+      <NetworkInfo 
+        networkData={systemMetrics.networkInterfaces}
+        networkSpeed={{
+          speedIn: systemMetrics.network.speedIn,
+          speedOut: systemMetrics.network.speedOut
+        }}
+      />
 
       {/* Rest of the dashboard content */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
