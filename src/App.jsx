@@ -10,8 +10,12 @@ import Reports from "./components/reports.jsx";
 import Settings from "./components/settings.jsx";
 import Tools from "./components/tools.jsx";
 import Dashboard from "./components/dashboard.jsx";
+
+// Import the tools components
 import PortScan from "./components/tools/PortScan.jsx";
 import NetworkScanner from "./components/tools/NetworkScanner.jsx";
+import PasswordAnalyzer from "./components/tools/PasswordAnalyzer.jsx";
+import SSLCertificateManager from "./components/tools/SSLCertificateManager.jsx";
 
 export default function App() {
 
@@ -23,15 +27,11 @@ export default function App() {
       // const openPorts = await window.api.portScan('192.168.1.1', '1-1000');
       // console.log("Open Ports:", openPorts);// This should print the open ports
 
-      const serviceDiscovery = await window.api.serviceDiscovery();
-      console.log("Service Discovery:", serviceDiscovery);
+      // const serviceDiscovery = await window.api.serviceDiscovery();
+      // console.log("Service Discovery:", serviceDiscovery);
     };
     fetchSystemInfo();
   }, []);
-
-  // useEffect(() => {
-  //   document.title = "Cyber X - Security Analysis Platform";
-  // }, []);
 
   return (
     <BrowserRouter>
@@ -45,8 +45,12 @@ export default function App() {
         <Route path="/reports" element={<AuthLayout><Reports /></AuthLayout>} />
         <Route path="/settings" element={<AuthLayout><Settings /></AuthLayout>} />
         <Route path="/tools" element={<AuthLayout><Tools /></AuthLayout>}>
+
           <Route path="network-scan" element={<NetworkScanner />} />
           <Route path="port-scan" element={<PortScan />} />
+          <Route path="password-analyzer" element={<PasswordAnalyzer />} />
+          <Route path="ssl-manager" element={<SSLCertificateManager />} />
+          
           {/* <Route path="xss" element={<XssScan />} />
           <Route path="sql-scan" element={<SqlScan />} />
           <Route path="ssl-scan" element={<SslScan />} /> */}

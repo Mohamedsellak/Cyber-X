@@ -53,6 +53,24 @@ export default function Tools() {
     },
     {
       id: 3,
+      name: 'Password Analyzer',
+      description: 'Check password strength and identify vulnerabilities',
+      icon: RiLockPasswordLine,
+      category: 'web',
+      uses: 203,
+      path: 'password-analyzer'
+    },
+    {
+      id: 4,
+      name: 'SSL Certificate Manager',
+      description: 'Manage and monitor SSL/TLS certificates',
+      icon: RiShieldCheckLine,
+      category: 'web',
+      uses: 178,
+      path: 'ssl-manager'
+    },
+    {
+      id: 10,
       name: 'Malware Detector',
       description: 'Scan systems for potential malware threats',
       icon: RiBugLine,
@@ -60,15 +78,6 @@ export default function Tools() {
       uses: 156,
       path: '/'
 
-    },
-    {
-      id: 4,
-      name: 'Password Analyzer',
-      description: 'Check password strength and identify vulnerabilities',
-      icon: RiLockPasswordLine,
-      category: 'web',
-      uses: 203,
-      path: '/'
     },
     {
       id: 5,
@@ -113,15 +122,6 @@ export default function Tools() {
       icon: RiFileShieldLine,
       category: 'system',
       uses: 134,
-      path: '/'
-    },
-    {
-      id: 10,
-      name: 'SSL Certificate Manager',
-      description: 'Manage and monitor SSL/TLS certificates',
-      icon: RiShieldCheckLine,
-      category: 'web',
-      uses: 178,
       path: '/'
     },
     {

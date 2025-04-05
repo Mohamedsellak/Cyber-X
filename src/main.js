@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const { getSystemInfo, getTemperature, getUptime, getNetworkStats } = require('./services/systemInfo');
 const { scanNetwork, portScan, serviceDiscovery } = require('./services/networkScan');
+const sslChecker = require('ssl-checker');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -41,6 +42,14 @@ ipcMain.handle('service-discovery', async (event, target) => {
     throw error;
   }
 });
+
+// // Add SSL certificate checking handler
+// const checkSSL = async (_, domain) => {
+//   const hostname = domain.replace(/^(https?:\/\/)/, '').split('/')[0];
+//   return await sslChecker(hostname);
+// };
+
+// ipcMain.handle('check-ssl-certificate', checkSSL);
 
 // Define the main window
 const createWindow = () => {
