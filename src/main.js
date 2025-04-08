@@ -2,7 +2,8 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const { getSystemInfo, getTemperature, getUptime, getNetworkStats } = require('./services/systemInfo');
 const { scanNetwork, portScan, serviceDiscovery } = require('./services/networkScan');
-const sslChecker = require('ssl-checker');
+const whoisLookup = require('./services/whois');
+const tcpPing = require('./services/tcpie-ping');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -43,32 +44,47 @@ ipcMain.handle('service-discovery', async (event, target) => {
   }
 });
 
-// // Add SSL certificate checking handler
-// const checkSSL = async (_, domain) => {
-//   const hostname = domain.replace(/^(https?:\/\/)/, '').split('/')[0];
-//   return await sslChecker(hostname);
-// };
+ipcMain.handle('whois', async (event, domain) => {
+  try {
+    const result = await whoisLookup(domain);
+    return result;
+  } catch (error) {
+    console.error('Whois lookup error:', error);
+    throw error;
+  }
+});
 
-// ipcMain.handle('check-ssl-certificate', checkSSL);
+
+ipcMain.handle('tcp-ping', async (event, host, port, options) => {
+  try {
+    const result = await tcpPing(host, port, options);
+    return result;
+  } catch (error) {
+    console.error('TCP ping error:', error);
+    throw error;
+  }
+}
+);
+
+
 
 // Define the main window
 const createWindow = () => {
-  // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 1000,
     height: 700,
-    // resizable: false,
     icon: path.join(__dirname, 'assets', 'icon.png'),
     webPreferences: {
+      nodeIntegration: false,
       contextIsolation: true,
-      nodeIntegration: true,
       enableRemoteModule: false,
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+      webSecurity: true,
+      sandbox: true
     },
     autoHideMenuBar: true,
   });
 
-  // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.

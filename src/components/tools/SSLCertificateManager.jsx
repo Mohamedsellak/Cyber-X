@@ -13,19 +13,19 @@ export default function SSLCertificateManager() {
     setLoading(true);
     setError(null);
     
-    // try {
-    //   // Validate input
-    //   if (!domain.match(/^(?:https?:\/\/)?(?:[\w-]+\.)+[\w-]+(?::\d+)?(?:\/[\w-./?%&=]*)?$/)) {
-    //     throw new Error('Please enter a valid domain or URL');
-    //   }
+    try {
+      // Validate input
+      if (!domain.match(/^(?:https?:\/\/)?(?:[\w-]+\.)+[\w-]+(?::\d+)?(?:\/[\w-./?%&=]*)?$/)) {
+        throw new Error('Please enter a valid domain or URL');
+      }
 
-    //   const result = await window.api.checkSSLCertificate(domain);
-    //   setCertInfo(result);
-    // } catch (err) {
-    //   setError(err.message);
-    // } finally {
-    //   setLoading(false);
-    // }
+      const result = await window.api.checkSSLCertificate(domain);
+      setCertInfo(result);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

@@ -8,5 +8,6 @@ contextBridge.exposeInMainWorld('api', {
   scanNetwork: (range) => ipcRenderer.invoke('scan-network', range),
   portScan: (target, ports) => ipcRenderer.invoke('port-scan', target, ports),
   serviceDiscovery: (target) => ipcRenderer.invoke('service-discovery', target),
-  // checkSSLCertificate: (domain) => ipcRenderer.invoke('check-ssl-certificate', domain)
+  whois: (domain) => ipcRenderer.invoke('whois', domain),
+  tcpPing: (host, port, options) => ipcRenderer.invoke('tcp-ping', host, port, options),
 });

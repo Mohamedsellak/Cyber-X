@@ -16,21 +16,23 @@ import PortScan from "./components/tools/PortScan.jsx";
 import NetworkScanner from "./components/tools/NetworkScanner.jsx";
 import PasswordAnalyzer from "./components/tools/PasswordAnalyzer.jsx";
 import SSLCertificateManager from "./components/tools/SSLCertificateManager.jsx";
+import Whois from "./components/tools/Whois.jsx";
+import TcpiePing from "./components/tools/tcpiePing.jsx";
 
 export default function App() {
 
   useEffect(() => {
-    const fetchSystemInfo = async () => {
-      // const networkDevices = await window.api.scanNetwork();
-      // console.log("Network Devices:", networkDevices);
+    // const performTcpScan = async () => {
+    //   const tcpie = await window.api.tcpPing("example.com", 22, {
+    //     count: 5,
+    //     interval: 1000,
+    //     timeout: 3000
+    //   }); // This will start a TCP scan on example.com port 22
 
-      // const openPorts = await window.api.portScan('192.168.1.1', '1-1000');
-      // console.log("Open Ports:", openPorts);// This should print the open ports
+    //   console.log("TCP Scan Results:", tcpie);
+    // };
 
-      // const serviceDiscovery = await window.api.serviceDiscovery();
-      // console.log("Service Discovery:", serviceDiscovery);
-    };
-    fetchSystemInfo();
+    // performTcpScan();
   }, []);
 
   return (
@@ -50,10 +52,10 @@ export default function App() {
           <Route path="port-scan" element={<PortScan />} />
           <Route path="password-analyzer" element={<PasswordAnalyzer />} />
           <Route path="ssl-manager" element={<SSLCertificateManager />} />
+          <Route path="whois" element={<Whois />} />
+          <Route path="tcpie" element={<TcpiePing />} />
+
           
-          {/* <Route path="xss" element={<XssScan />} />
-          <Route path="sql-scan" element={<SqlScan />} />
-          <Route path="ssl-scan" element={<SslScan />} /> */}
         </Route>
         
         {/* Fallback route */}

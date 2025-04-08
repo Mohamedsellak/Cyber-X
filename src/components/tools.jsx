@@ -70,6 +70,24 @@ export default function Tools() {
       path: 'ssl-manager'
     },
     {
+      id: 100,
+      name: 'whois Lookup',
+      description: 'Get domain registration information',
+      icon: RiGlobalLine,
+      category: 'web',
+      uses: 145,
+      path: 'whois'
+    },
+    {
+      id: 101,
+      name: 'Tcpie Ping',
+      description: 'TCP ping tool for network diagnostics',
+      icon: RiTerminalBoxLine,
+      category: 'network',
+      uses: 167,
+      path: 'tcpie'
+    },
+    {
       id: 10,
       name: 'Malware Detector',
       description: 'Scan systems for potential malware threats',
