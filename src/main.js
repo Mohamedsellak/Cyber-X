@@ -4,6 +4,7 @@ const { getSystemInfo, getTemperature, getUptime, getNetworkStats } = require('.
 const { scanNetwork, portScan, serviceDiscovery } = require('./services/networkScan');
 const whoisLookup = require('./services/whois');
 const tcpPing = require('./services/tcpie-ping');
+const { getGatewayInfo } = require('./services/defaultGateway');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -66,7 +67,14 @@ ipcMain.handle('tcp-ping', async (event, host, port, options) => {
 }
 );
 
-
+ipcMain.handle('get-gateway-info', async () => {
+  try {
+    return await getGatewayInfo();
+  } catch (error) {
+    console.error('Gateway info error:', error);
+    throw error;
+  }
+});
 
 // Define the main window
 const createWindow = () => {

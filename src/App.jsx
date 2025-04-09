@@ -18,6 +18,8 @@ import PasswordAnalyzer from "./components/tools/PasswordAnalyzer.jsx";
 import SSLCertificateManager from "./components/tools/SSLCertificateManager.jsx";
 import Whois from "./components/tools/Whois.jsx";
 import TcpiePing from "./components/tools/tcpiePing.jsx";
+import DefaultGateway from "./components/tools/defaultGetway.jsx";
+
 
 export default function App() {
 
@@ -54,6 +56,7 @@ export default function App() {
           <Route path="ssl-manager" element={<SSLCertificateManager />} />
           <Route path="whois" element={<Whois />} />
           <Route path="tcpie" element={<TcpiePing />} />
+          <Route path="defaultGateway" element={<DefaultGateway />} />
 
           
         </Route>

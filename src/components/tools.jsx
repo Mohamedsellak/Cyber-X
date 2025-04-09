@@ -88,6 +88,15 @@ export default function Tools() {
       path: 'tcpie'
     },
     {
+      id: 102,
+      name: 'default Gateway',
+      description: 'Get default gateway information',
+      icon: RiComputerLine,
+      category: 'network',
+      uses: 189,
+      path: 'defaultGateway'
+    },
+    {
       id: 10,
       name: 'Malware Detector',
       description: 'Scan systems for potential malware threats',
