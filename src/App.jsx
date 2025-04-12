@@ -19,6 +19,7 @@ import SSLCertificateManager from "./components/tools/SSLCertificateManager.jsx"
 import Whois from "./components/tools/Whois.jsx";
 import TcpiePing from "./components/tools/tcpiePing.jsx";
 import DefaultGateway from "./components/tools/defaultGetway.jsx";
+import SubDomains from "./components/tools/SubDomains.jsx";
 
 
 export default function App() {
@@ -57,7 +58,8 @@ export default function App() {
           <Route path="whois" element={<Whois />} />
           <Route path="tcpie" element={<TcpiePing />} />
           <Route path="defaultGateway" element={<DefaultGateway />} />
-
+          <Route path="subdomain" element={<SubDomains />} />
+          
           
         </Route>
         

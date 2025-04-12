@@ -5,6 +5,7 @@ const { scanNetwork, portScan, serviceDiscovery } = require('./services/networkS
 const whoisLookup = require('./services/whois');
 const tcpPing = require('./services/tcpie-ping');
 const { getGatewayInfo } = require('./services/defaultGateway');
+const { findSubdomains } = require('./services/subquest');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -16,6 +17,7 @@ ipcMain.handle('get-system-info', getSystemInfo);
 ipcMain.handle('get-temperature', getTemperature);
 ipcMain.handle('get-uptime', getUptime);
 ipcMain.handle('get-network-stats', getNetworkStats);
+
 
 // Add error handling for network scanning functions
 ipcMain.handle('scan-network', async (event, range) => {
@@ -75,6 +77,18 @@ ipcMain.handle('get-gateway-info', async () => {
     throw error;
   }
 });
+
+ipcMain.handle('get-subdomains', async (event, host) => {
+  try {
+    const result = await findSubdomains(host);
+    return result;
+  } catch (error) {
+    console.error('Subdomain scan error:', error);
+    throw error;
+  }
+}
+);
+  
 
 // Define the main window
 const createWindow = () => {

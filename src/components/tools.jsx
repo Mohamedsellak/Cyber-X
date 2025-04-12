@@ -97,6 +97,15 @@ export default function Tools() {
       path: 'defaultGateway'
     },
     {
+      id: 103,
+      name: 'subdomain discovery',
+      description: 'Discover subdomains for a given domain',
+      icon: RiGlobalLine,
+      category: 'web',
+      uses: 134,
+      path: 'subdomain'
+    },
+    {
       id: 10,
       name: 'Malware Detector',
       description: 'Scan systems for potential malware threats',

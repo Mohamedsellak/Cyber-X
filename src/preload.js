@@ -11,4 +11,5 @@ contextBridge.exposeInMainWorld('api', {
   whois: (domain) => ipcRenderer.invoke('whois', domain),
   tcpPing: (host, port, options) => ipcRenderer.invoke('tcp-ping', host, port, options),
   getGatewayInfo: () => ipcRenderer.invoke('get-gateway-info'),
+  getSubDomains: (host) => ipcRenderer.invoke('get-subdomains', host),
 });
